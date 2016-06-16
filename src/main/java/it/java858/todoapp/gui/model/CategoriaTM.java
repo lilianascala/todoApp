@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.java858.todoapp.gui;
+package it.java858.todoapp.gui.model;
 
 import it.java858.todoapp.entity.Categoria;
 import java.util.List;
@@ -19,6 +19,7 @@ public class CategoriaTM extends AbstractTableModel {
     String[] nomi = {"id", "nome"};
 
     List<Categoria> categorie;
+    public Categoria get;
 
     public CategoriaTM(List<Categoria> categorie) {
         this.categorie = categorie;

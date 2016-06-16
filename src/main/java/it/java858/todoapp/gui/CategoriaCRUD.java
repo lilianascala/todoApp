@@ -5,6 +5,7 @@
  */
 package it.java858.todoapp.gui;
 
+import it.java858.todoapp.gui.model.CategoriaTM;
 import it.java858.todoapp.entity.Categoria;
 import it.java858.todoapp.service.CategoriaService;
 import javax.swing.ListSelectionModel;
@@ -14,16 +15,16 @@ import javax.swing.ListSelectionModel;
  * @author tss
  */
 public class CategoriaCRUD extends javax.swing.JDialog {
-
+    
     CategoriaTM categoriaTM;
-       
+
     /**
      * Creates new form CategoriaCRUD
      */
     public CategoriaCRUD(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        categoriaTM=new CategoriaTM(CategoriaService.findAll());
+        categoriaTM = new CategoriaTM(CategoriaService.findAll());
         tblCategorie.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblCategorie.setModel(categoriaTM);
     }
@@ -43,6 +44,7 @@ public class CategoriaCRUD extends javax.swing.JDialog {
         cmdCancella = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestione categorie");
 
         tblCategorie.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,6 +60,11 @@ public class CategoriaCRUD extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblCategorie);
 
         cmdModifica.setText("modifica");
+        cmdModifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdModificaActionPerformed(evt);
+            }
+        });
 
         cmdCancella.setText("cancella");
         cmdCancella.addActionListener(new java.awt.event.ActionListener() {
@@ -96,17 +103,24 @@ public class CategoriaCRUD extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdCancellaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCancellaActionPerformed
-
-        Categoria toRemove=categoriaTM.get
-        (tblCategorie.convertRowIndexToModel(tblCategorie.getSelectedRow()));
+        
+        Categoria toRemove = categoriaTM.get(tblCategorie.convertRowIndexToModel(tblCategorie.getSelectedRow()));
         CategoriaService.elimina(toRemove);
         categoriaTM.changeData(CategoriaService.findAll());
     }//GEN-LAST:event_cmdCancellaActionPerformed
 
+    private void cmdModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdModificaActionPerformed
+        
+        Categoria toEdit = categoriaTM.get(tblCategorie.convertRowIndexToModel(tblCategorie.getSelectedRow()));
+        CategoriaEdit editView = new CategoriaEdit(toEdit, this, true);
+        editView.setLocationRelativeTo(this);
+        editView.setVisible(true);
+        
+    }//GEN-LAST:event_cmdModificaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdCancella;
