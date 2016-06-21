@@ -125,7 +125,7 @@ public class CategoriaEdit extends javax.swing.JDialog {
         //newc.setNome(txtNome.getText());
         //CategoriaService.save(newc);
         CategoriaService.save(categoria);
-        JOptionPane.showMessageDialog(this, "categoria salvata");
+        //OptionPane.showMessageDialog(this, "categoria salvata");
         close();
     }//GEN-LAST:event_cmdSalvaActionPerformed
     private void close() {
